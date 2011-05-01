@@ -1,0 +1,23 @@
+<../../mkconfig
+
+DIRS=\
+
+<$ROOT/mkfiles/mksubdirs
+test:V: test-$SHELLTYPE
+
+TARG=\
+	register.dis\
+
+SYSMODULES=\
+	sys.m\
+	draw.m\
+	arg.m\
+	registries.m\
+
+MODULES=\
+	../../../logger/module/logger.m\
+
+DISBIN=../../dis/cmd
+
+<$ROOT/mkfiles/mkdis
+LIMBOFLAGS=$LIMBOFLAGS -I$INFERNO_HOME
