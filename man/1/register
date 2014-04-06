@@ -1,0 +1,68 @@
+.TH REGISTER 1
+.SH NAME
+register \- Keep given service addr/attrs registered in registry
+.SH SYNOPSIS
+.EX
+register [-v] [[-a attr val] …] addr
+
+.EE
+.SH DESCRIPTION
+.PP
+This command will try to keep service named 
+.I addr
+with given attributes
+(
+.I attr
+and 
+.I val
+pairs) registered in default 
+.IR registry (4)
+(which should
+be available at 
+.BR /mnt/registry ).
+When registry is not available retry
+attempt to (re-)register service every 1 second.
+.PP
+.B -v
+will increase log verbosity level.
+.PP
+If registry mounted from remote server it's recommended to use
+.IR retrymount (1)
+to make sure registry will automatically reappear in
+.B /mnt/registry
+after any connection issues or restarting registry service.
+.SH EXAMPLES
+.PP
+Static port:
+.EX
+addr=tcp!localhost!rstyx
+listen -i {register -a proto rstyx $addr&} $addr {auxi/rstyxd&}
+
+.EE
+.PP
+Dynamic port and watchdog:
+.EX
+listen -v -i {
+
+        load std
+
+        port  := ${hd ${tl ${split ! `{cat $net/local} } } }
+        attrs := ( -a proto rstyx -a auth infpk1 )
+
+        watchdog register -v $attrs tcp!localhost!$port
+
+    } tcp!localhost!0 {auxi/rstyxd&}
+
+.EE
+.SH DEPENDENCIES
+.PP
+.B http://code.google.com/p/inferno-contrib-logger/
+.SH SOURCE
+.PP
+.B /opt/powerman/register/appl/cmd/register.b
+.br
+.SH SEE ALSO
+.PP
+.IR registries (2),
+.IR registry (4)
+.SH BUGS

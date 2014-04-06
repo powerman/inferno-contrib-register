@@ -1,9 +1,14 @@
-<../../mkconfig
+PKGDIR=../..
+<$PKGDIR/mkconfig
+
 
 DIRS=\
+	t\
 
-<$ROOT/mkfiles/mksubdirs
-test:V: test-$SHELLTYPE
+<$MKFILES/mksubdirs
+
+
+DISBIN=$PKGDIR/dis/cmd
 
 TARG=\
 	register.dis\
@@ -14,10 +19,9 @@ SYSMODULES=\
 	arg.m\
 	registries.m\
 
+OPTMODULES=\
+	opt/powerman/logger/module/logger.m\
+
 MODULES=\
-	../../../logger/module/logger.m\
 
-DISBIN=../../dis/cmd
-
-<$ROOT/mkfiles/mkdis
-LIMBOFLAGS=$LIMBOFLAGS -I$INFERNO_HOME
+<$MKFILES/mkdis

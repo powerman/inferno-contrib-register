@@ -1,0 +1,71 @@
+REGISTER(1)
+===========
+
+== NAME
+
+register - Keep given service addr/attrs registered in registry
+
+
+== SYNOPSIS
+
+----
+register [-v] [[-a attr val] …] addr
+----
+
+
+== DESCRIPTION
+
+This command will try to keep service named 'addr' with given attributes
+('attr' and 'val' pairs) registered in default registry(4) (which should
+be available at */mnt/registry*). When registry is not available retry
+attempt to (re-)register service every 1 second.
+
+*-v* will increase log verbosity level.
+
+If registry mounted from remote server it's recommended to use
+retrymount(1) to make sure registry will automatically reappear in
+*/mnt/registry* after any connection issues or restarting registry service.
+
+
+== EXAMPLES
+
+Static port:
+
+----
+addr=tcp!localhost!rstyx
+listen -i {register -a proto rstyx $addr&} $addr {auxi/rstyxd&}
+----
+
+Dynamic port and watchdog:
+
+----
+listen -v -i {
+
+        load std
+
+        port  := ${hd ${tl ${split ! `{cat $net/local} } } }
+        attrs := ( -a proto rstyx -a auth infpk1 )
+
+        watchdog register -v $attrs tcp!localhost!$port
+
+    } tcp!localhost!0 {auxi/rstyxd&}
+----
+
+
+== DEPENDENCIES
+
+http://code.google.com/p/inferno-contrib-logger/
+
+
+== SOURCE
+
+`/opt/powerman/register/appl/cmd/register.b`
+
+
+== SEE ALSO
+
+registries(2), registry(4)
+
+
+== BUGS
+

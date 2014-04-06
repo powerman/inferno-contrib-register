@@ -1,0 +1,8 @@
+PKGDIR=..
+<$PKGDIR/mkconfig
+
+
+MANDIRS=\
+	1\
+
+<$MKFILES/mkindices
