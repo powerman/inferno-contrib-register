@@ -8,17 +8,28 @@ attempt to (re-)register service every 1 second.
 
 # Install
 
-Make directory with this app available in /opt/powerman/register/, for ex.:
+Make directory with this app available in /opt/powerman/register/.
+
+Install system-wide:
 
 ```
 # git clone https://github.com/powerman/inferno-contrib-register.git $INFERNO_ROOT/opt/powerman/register
 ```
 
-or in user home directory:
+or in your home directory:
 
 ```
 $ git clone https://github.com/powerman/inferno-contrib-register.git $INFERNO_USER_HOME/opt/powerman/register
 $ emu
+; bind opt /opt
+```
+
+or locally for your project:
+
+```
+$ git clone https://github.com/powerman/inferno-contrib-register.git $YOUR_PROJECT_DIR/opt/powerman/register
+$ emu
+; cd $YOUR_PROJECT_DIR_INSIDE_EMU
 ; bind opt /opt
 ```
 
