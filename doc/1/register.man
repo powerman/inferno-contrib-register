@@ -56,7 +56,7 @@ listen -v -i {
 .EE
 .SH DEPENDENCIES
 .PP
-.B http://code.google.com/p/inferno-contrib-logger/
+.B https://github.com/powerman/inferno-contrib-logger
 .SH SOURCE
 .PP
 .B /opt/powerman/register/appl/cmd/register.b

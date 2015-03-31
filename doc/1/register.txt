@@ -54,7 +54,7 @@ listen -v -i {
 
 == DEPENDENCIES
 
-http://code.google.com/p/inferno-contrib-logger/
+https://github.com/powerman/inferno-contrib-logger
 
 
 == SOURCE
